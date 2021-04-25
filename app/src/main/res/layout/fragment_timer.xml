@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".TimerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:id="@+id/workMinus"
@@ -107,6 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="22dp"
+        android:inputType="number"
+        android:onClick="editTextAction"
         android:text="@string/defaultSets"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/setMinus"
@@ -117,6 +118,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:inputType="number"
+        android:onClick="editTextAction"
         android:text="@string/defaultRestMin"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/restMinus"
@@ -128,6 +131,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
+        android:inputType="number"
+        android:onClick="editTextAction"
         android:text="@string/defaultRestSec"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -150,6 +155,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
+        android:inputType="number"
+        android:onClick="editTextAction"
         android:text="@string/defaultWorkSec"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -160,6 +167,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:inputType="number"
+        android:onClick="editTextAction"
         android:text="@string/defaultWorkMin"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/workMinus"

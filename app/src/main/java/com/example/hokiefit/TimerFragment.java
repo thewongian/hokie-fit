@@ -1,64 +1,236 @@
 package com.example.hokiefit;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link TimerFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
-public class TimerFragment extends Fragment {
+public class TimerFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    Button setMinus, setPlus, workMinus, workPlus, restMinus, restPlus;
+    EditText sets, workMin, workSec, restMin, restSec;
+    WorkoutTimer timer;
+    Toast toast;
+    TimerFragmentListener listener;
     public TimerFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TimerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TimerFragment newInstance(String param1, String param2) {
-        TimerFragment fragment = new TimerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_timer, container, false);
+        View view = inflater.inflate(R.layout.fragment_timer, container, false);
+        //initialize views
+        setMinus = (Button) view.findViewById(R.id.setMinus);
+        setPlus = (Button) view.findViewById(R.id.setPlus);
+        workMinus = (Button) view.findViewById(R.id.workMinus);
+        workPlus = (Button) view.findViewById(R.id.workPlus);
+        restMinus = (Button) view.findViewById(R.id.restMinus);
+        restPlus = (Button) view.findViewById(R.id.restPlus);
+
+
+
+
+        sets = (EditText) view.findViewById(R.id.sets);
+        workMin = (EditText) view.findViewById(R.id.workMin);
+        workSec = (EditText) view.findViewById(R.id.workSec);
+        restMin = (EditText) view.findViewById(R.id.restMin);
+        restSec = (EditText) view.findViewById(R.id.restSec);
+
+
+        setMinus.setOnClickListener(this);
+        setPlus.setOnClickListener(this);
+        workMinus.setOnClickListener(this);
+        workPlus.setOnClickListener(this);
+        restMinus.setOnClickListener(this);
+        restPlus.setOnClickListener(this);
+
+        sets.setOnClickListener(this);
+        workMin.setOnClickListener(this);
+        workSec.setOnClickListener(this);
+        restMin.setOnClickListener(this);
+        restSec.setOnClickListener(this);
+
+        //initialize member variable with default values
+        timer = new WorkoutTimer();
+        listener.updateWorkoutTimer(timer);
+
+
+        return view;
     }
+
+    public void setTimer(WorkoutTimer workoutTimer) {
+        timer = workoutTimer;
+        sets.setText(workoutTimer.getSets());
+        workMin.setText(String.format("%02d", workoutTimer.getWorkMin()));
+        workSec.setText(String.format("%02d", workoutTimer.getWorkSec()));
+        restMin.setText(String.format("%02d", workoutTimer.getRestMin()));
+        restSec.setText(String.format("%02d", workoutTimer.getRestSec()));
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+        listener = (TimerFragmentListener) context;
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    /**
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        int temp;
+        switch(v.getId()) {
+            case R.id.setMinus:
+                if (Integer.parseInt(sets.getText().toString()) > 1) {
+                    timer.decrementSet();
+                    sets.setText(String.format("%d", timer.getSets()));
+
+                }
+                break;
+            case R.id.setPlus:
+                timer.incrementSet();
+                sets.setText(String.format("%d", timer.getSets()));
+                break;
+            case R.id.workMinus:
+                timer.decrementWork();
+                workMin.setText(String.format("%02d", timer.getWorkMin()));
+                workSec.setText(String.format("%02d", timer.getWorkSec()));
+                break;
+            case R.id.workPlus:
+                timer.incrementWork();
+                workMin.setText(String.format("%02d", timer.getWorkMin()));
+                workSec.setText(String.format("%02d", timer.getWorkSec()));
+                break;
+            case R.id.restMinus:
+                timer.decrementRest();
+                restMin.setText(String.format("%02d", timer.getRestMin()));
+                restSec.setText(String.format("%02d", timer.getRestSec()));
+                break;
+            case R.id.restPlus:
+                timer.incrementRest();
+                restMin.setText(String.format("%02d", timer.getRestMin()));
+                restSec.setText(String.format("%02d", timer.getRestSec()));
+                break;
+            case R.id.sets:
+                temp = timer.getSets();
+                timer.setSets(Integer.parseInt(sets.getText().toString()));
+                if (timer.getSets() < 1) {
+                    sets.setText(String.format("%d", temp));
+                    toast.setText("Too few sets! Minimum of 1 set");
+                    toast.show();
+                    timer.setSets(temp);
+
+                }
+                else {
+                    sets.setText(String.format("%d", timer.getSets()));
+                }
+                break;
+
+            case R.id.workMin:
+                temp = timer.getWorkMin();
+                timer.setWorkMin(Integer.parseInt(workMin.getText().toString()));
+                if (timer.getWorkMin() > 99) {
+                    workMin.setText(String.format("%02d", temp));
+                    toast.setText("Maximum work minutes is 99");
+                    toast.show();
+                    timer.setWorkMin(temp);
+                }
+                else if (timer.getWorkMin() < 1 && timer.getWorkSec() < 1) {
+                    workMin.setText(String.format("%02d", temp));
+                    toast.setText("Minimum work time must be at least 1 second");
+                    toast.show();
+                    timer.setWorkMin(temp);
+                }
+                else {
+                    workMin.setText(String.format("%02d", timer.getWorkMin()));
+                }
+                break;
+            case R.id.workSec:
+                temp = timer.getWorkSec();
+                timer.setWorkSec(Integer.parseInt(workSec.getText().toString()));
+                if (timer.getWorkSec() > 59) {
+                    workSec.setText(String.format("%02d", temp));
+                    toast.setText("Maximum work seconds is 59");
+                    toast.show();
+                    timer.setWorkSec(temp);
+                }
+                else if (timer.getWorkMin() < 1 && timer.getWorkSec() < 1) {
+                    workSec.setText(String.format("%02d", temp));
+                    toast.setText("Minimum work time must be at least 1 second");
+                    toast.show();
+                    timer.setWorkSec(temp);
+                }
+                else {
+                    workSec.setText(String.format("%02d", timer.getWorkSec()));
+                }
+                break;
+            case R.id.restMin:
+                temp = timer.getRestMin();
+                timer.setRestMin(Integer.parseInt(restMin.getText().toString()));
+                if (timer.getRestMin() > 99) {
+                    restMin.setText(String.format("%02d", temp));
+                    toast.setText("Maximum rest minutes is 99");
+                    toast.show();
+                    timer.setRestMin(temp);
+                }
+                else if (timer.getRestMin() < 1 && timer.getRestSec() < 1) {
+                    restMin.setText(String.format("%02d", temp));
+                    toast.setText("Minimum rest time must be at least 1 second");
+                    toast.show();
+                    timer.setRestMin(temp);
+                }
+                else {
+                    restMin.setText(String.format("%02d",timer.getRestMin()));
+                }
+                break;
+            case R.id.restSec:
+                temp = timer.getRestSec();
+                timer.setRestSec(Integer.parseInt(workSec.getText().toString()));
+                if (timer.getRestSec() > 59) {
+                    restSec.setText(String.format("%02d", temp));
+                    toast.setText("Maximum rest seconds is 59");
+                    toast.show();
+                    timer.setRestSec(temp);
+                }
+                else if (timer.getRestMin() < 1 && timer.getRestSec() < 1) {
+                    restSec.setText(String.format("%02d", temp));
+                    toast.setText("Minimum rest time must be at least 1 second");
+                    toast.show();
+                    timer.setRestSec(temp);
+                }
+                else {
+                    restSec.setText(String.format("%02d", timer.getRestSec()));
+                }
+                break;
+        }
+
+    }
+    public interface TimerFragmentListener {
+        void updateWorkoutTimer(WorkoutTimer timer);
+    }
+
 }
