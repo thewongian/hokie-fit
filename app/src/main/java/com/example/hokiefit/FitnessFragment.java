@@ -40,6 +40,8 @@ public class FitnessFragment extends Fragment implements CompoundButton.OnChecke
 
         stopwatchMode = (SwitchCompat) view.findViewById(R.id.stopwatchMode);
         stopwatchMode.setOnCheckedChangeListener(this);
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().add(R.id.workoutTimerFragment, new TimerSelectionFragment()).commit();
         return view;
     }
 
@@ -59,7 +61,9 @@ public class FitnessFragment extends Fragment implements CompoundButton.OnChecke
             fragment = new TimerSelectionFragment();
 
         }
-        transaction.replace(R.id.workoutTimerFragment, fragment);
-        transaction.commit();
+        transaction.replace(R.id.workoutTimerFragment, fragment).commit();
+
+
+        ;
     }
 }

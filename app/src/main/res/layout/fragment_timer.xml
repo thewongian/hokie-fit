@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/maroon"
     tools:context=".TimerFragment">
 
 
@@ -32,7 +33,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="9dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/ic_baseline_minimize_24"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +43,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/ic_baseline_add_24"
         app:layout_constraintStart_toEndOf="@+id/sets"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,6 +75,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="32dp"
         android:text="@string/sets"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,6 +87,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
         android:text="@string/work"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -96,6 +99,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
         android:text="@string/rest"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -104,11 +108,12 @@
         android:id="@+id/sets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="17dp"
         android:inputType="number"
         android:onClick="editTextAction"
         android:text="@string/defaultSets"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/setMinus"
         app:layout_constraintTop_toTopOf="parent" />
@@ -117,10 +122,11 @@
         android:id="@+id/restMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:inputType="number"
         android:onClick="editTextAction"
         android:text="@string/defaultRestMin"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/restMinus"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -130,10 +136,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:inputType="number"
         android:onClick="editTextAction"
         android:text="@string/defaultRestSec"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -143,8 +150,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="43dp"
         android:text="@string/colon"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/workMin"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -154,10 +162,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:inputType="number"
-        android:onClick="editTextAction"
+        android:onClick=" "
         android:text="@string/defaultWorkSec"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -166,10 +175,11 @@
         android:id="@+id/workMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:inputType="number"
         android:onClick="editTextAction"
         android:text="@string/defaultWorkMin"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/workMinus"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -179,8 +189,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="43dp"
         android:text="@string/colon"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/restMin"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

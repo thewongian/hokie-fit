@@ -26,7 +26,7 @@ public class TimerSelectionFragment extends Fragment implements TimerFragment.Ti
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timer_selection, container, false);
-        start = (Button) view.findViewById(R.id.start);
+        start = (Button) view.findViewById(R.id.stopwatchRest);
         presets = (Button) view.findViewById(R.id.presets);
 
         // Inflate the layout for this fragment
