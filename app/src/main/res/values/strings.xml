@@ -4,4 +4,8 @@
     <string name="profile">Profile</string>
     <string name="my_goal">My Goal</string>
     <string name="settings">Settings</string>
+    <string name="my_goals">My Goals</string>
+    <string name="activity_log">Activity Log</string>
+    <string name="openNavDrawer">Navigation Drawer Open</string>
+    <string name="closeNavDrawer">Navigation Drawer Close</string>
 </resources>
