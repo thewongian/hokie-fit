@@ -136,7 +136,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         });
 
         int calorieRemainder = maxCal - userData.getTotalCalories();
-        calorieTextView.setText(Integer.toString(calorieRemainder) + " Calories Remaining");
+        calorieTextView.setText(Integer.toString(calorieRemainder));
         calorieProgress.setProgress(userData.getTotalCalories());
         carbProgress.setProgress(userData.getTotalCarbs());
         proProgress.setProgress(userData.getTotalProteins());

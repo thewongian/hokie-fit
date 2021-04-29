@@ -81,7 +81,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/mainUserCalorieTextView"
+                android:id="@+id/tv_RemainingCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -94,14 +94,14 @@
                 app:layout_constraintTop_toTopOf="@+id/pb_MainCalories" />
 
             <TextView
-                android:id="@+id/tv_RemainingCalories"
+                android:id="@+id/mainUserCalorieTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mainRemainingCalText"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="@+id/pb_MainCalories"
                 app:layout_constraintStart_toStartOf="@+id/pb_MainCalories"
-                app:layout_constraintTop_toBottomOf="@+id/mainUserCalorieTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_RemainingCalories" />
 
             <ProgressBar
                 android:id="@+id/pb_MainCalories"
