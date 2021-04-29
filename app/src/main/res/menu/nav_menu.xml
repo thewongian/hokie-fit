@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/profile"
+        android:icon="@drawable/profile"
+        android:id="@+id/profile"/>
+    <item android:title="@string/my_goals"
+        android:icon="@drawable/goal"
+        android:id="@+id/goals"/>
+    <item android:title="@string/nutrition"
+        android:icon="@drawable/nutrition"/>
+    <item android:title="@string/fitness"
+        android:icon="@drawable/fitness"/>
+</menu>
