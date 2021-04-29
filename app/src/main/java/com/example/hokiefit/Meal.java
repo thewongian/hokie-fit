@@ -1,16 +1,21 @@
 package com.example.hokiefit;
 
+/**
+ * Meal class for nutritional data
+ */
 public class Meal {
     private String name, server;
-    private final double carbs, proteins, fats, calories;
+    private final double carbs, proteins, fats;
+    private int calories, number;
 
-    public Meal(String name, String server, double carbs, double proteins, double fats) {
+    public Meal(String name, String server, double carbs, double proteins, double fats, int num) {
         this.name = name;
         this.server = server;
         this.carbs = carbs;
         this.proteins = proteins;
         this.fats = fats;
-        this.calories = (carbs * 4) + (proteins * 4) + (fats * 9);
+        this.calories = (int)Math.round((carbs * 4) + (proteins * 4) + (fats * 9));
+        this.number = num;
     }
 
     public String getName() {
@@ -33,8 +38,12 @@ public class Meal {
         return fats;
     }
 
-    public double getCalories() {
+    public int getCalories() {
         return calories;
+    }
+
+    public int getNum() {
+        return number;
     }
 
 }

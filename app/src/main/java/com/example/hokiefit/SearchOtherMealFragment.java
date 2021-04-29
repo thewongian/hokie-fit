@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Nutrition Search Fragment
  */
-public class SearchDinnerFragment extends Fragment implements ListAdapter.ItemClickListener {
+public class SearchOtherMealFragment extends Fragment implements OtherMealListAdapter.ItemClickListener {
 
     MealList mealList = new MealList();
     public Meal[] userMealData = new Meal[4];
@@ -49,7 +49,7 @@ public class SearchDinnerFragment extends Fragment implements ListAdapter.ItemCl
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        ListAdapter listAdapter = new ListAdapter(userMealData, this);
+        OtherMealListAdapter listAdapter = new OtherMealListAdapter(userMealData, this);
         recyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

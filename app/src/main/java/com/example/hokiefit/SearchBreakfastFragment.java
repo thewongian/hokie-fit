@@ -11,35 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.SearchView;
-
-import java.util.ArrayList;
 
 /**
  * Nutrition Search Fragment
  */
-public class SearchScreenFragment extends Fragment implements ListAdapter.ItemClickListener {
+public class SearchBreakfastFragment extends Fragment implements BreakfastListAdapter.ItemClickListener {
 
     MealList mealList = new MealList();
     public Meal[] userMealData = new Meal[4];
-    private int mealTarget = 0;
-
-    public int getMealTarget() {
-        return mealTarget;
-    }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_screen, container, false);
 
         Button toMainScreen = (Button)view.findViewById(R.id.btn_backToMain);
         SearchView searchView = (SearchView)view.findViewById(R.id.sv_SearchBar);
-
-        // Load bundle if there is one
-        if (getArguments() != null) {
-            mealTarget = getArguments().getInt("key");
-        }
 
         // Button to main screen
         toMainScreen.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +40,7 @@ public class SearchScreenFragment extends Fragment implements ListAdapter.ItemCl
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        ListAdapter listAdapter = new ListAdapter(userMealData, this);
+        BreakfastListAdapter listAdapter = new BreakfastListAdapter(userMealData, this);
         recyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

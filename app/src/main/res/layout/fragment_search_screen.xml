@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchScreenFragment"
+    tools:context=".SearchBreakfastFragment"
     android:padding="20dp">
 
     <Button
@@ -27,8 +27,15 @@
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="20dp">
 
+        <SearchView
+            android:id="@+id/sv_SearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

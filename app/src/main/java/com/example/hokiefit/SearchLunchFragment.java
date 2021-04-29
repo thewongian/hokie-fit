@@ -1,26 +1,22 @@
 package com.example.hokiefit;
 
-import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.SearchView;
-
-import java.util.ArrayList;
-
 /**
  * Nutrition Search Fragment
  */
-public class SearchBreakfastFragment extends Fragment implements ListAdapter.ItemClickListener {
+public class SearchLunchFragment extends Fragment implements LunchListAdapter.ItemClickListener {
 
     MealList mealList = new MealList();
     public Meal[] userMealData = new Meal[4];
@@ -53,7 +49,7 @@ public class SearchBreakfastFragment extends Fragment implements ListAdapter.Ite
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        ListAdapter listAdapter = new ListAdapter(userMealData, this);
+        LunchListAdapter listAdapter = new LunchListAdapter(userMealData, this);
         recyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

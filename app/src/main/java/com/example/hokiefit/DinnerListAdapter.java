@@ -14,11 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Adapter class for recycler view
  */
-public class DinnerAdapter extends RecyclerView.Adapter implements Filterable {
+public class DinnerListAdapter extends RecyclerView.Adapter implements Filterable {
     ArrayList<Meal> mealList = new MealList().getMealList();
     ArrayList<Meal> mealListAll = new MealList().getMealList();
     private Meal[] userMealList;
@@ -26,15 +27,44 @@ public class DinnerAdapter extends RecyclerView.Adapter implements Filterable {
 
     @Override
     public Filter getFilter() {
-        return null;
+        return filter;
     }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Meal> filteredList = new ArrayList<Meal>();
+
+            if(constraint.toString().isEmpty()) {
+                filteredList.addAll(mealListAll);
+
+            } else {
+                for (Meal meal: mealListAll) {
+                    if (meal.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filteredList.add(meal);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults filterResults) {
+            mealList.clear();
+            mealList.addAll((Collection<? extends Meal>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     // Handles clicking interaction
     public interface ItemClickListener {
         public void onItemClick(Meal meal);
     }
 
-    public DinnerAdapter(Meal[] list, ItemClickListener clickListener) {
+    public DinnerListAdapter(Meal[] list, ItemClickListener clickListener) {
         this.userMealList = list;
         this.clickListener = clickListener;
     }
@@ -54,7 +84,7 @@ public class DinnerAdapter extends RecyclerView.Adapter implements Filterable {
             public void onClick(View v) {
                 int pos = holder.getLayoutPosition();
 
-                clickListener.onItemClick(userMealList[0] = mealList.get(pos));
+                clickListener.onItemClick(UserData.userMealList[2] = mealList.get(pos));
 
                 Bundle bundle = new Bundle();
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();

@@ -13,10 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
+/**
+ * Main Screen Fragment
+ */
 public class MainScreenFragment extends Fragment implements SensorEventListener {
     Button pdmReset;
     TextView walkNum;
@@ -24,21 +29,35 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
     private int nSteps = 0;
     private int nCounterSteps = 0;
 
+    private int maxCal = 2400;
+    private int maxCarb = 306;
+    private int maxPro = 108;
+    private int maxFats = 88;
+
     private SensorManager sensorManager;
     private Sensor stepCountSensor;
 
+    ArrayList<Meal> mealList = new MealList().getMealList();
 
+    private UserData userData;
     private View view;
+    private String[] passingArray;
 
 
     public MainScreenFragment() {
-        // Required empty public constructor
+        this.userData = new UserData();
     }
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            nSteps = savedInstanceState.getInt("pdmSave", 0);
+        }
+
         view = inflater.inflate(R.layout.fragment_main_screen, container, false);
 
         sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
@@ -52,16 +71,26 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         pdmReset = view.findViewById(R.id.btn_resetPdm);
         walkNum = view.findViewById(R.id.tv_stpCount);
 
-        Button breakfastSearch = (Button)view.findViewById(R.id.btn_breakfastSearch);
-        Button lunchSearch = (Button)view.findViewById(R.id.btn_lunchSearch);
-        Button dinnerSearch = (Button)view.findViewById(R.id.btn_dinnerSearch);
-        Button otherMealSearch = (Button)view.findViewById(R.id.btn_otherMealSearch);
+        Button breakfastSearch = view.findViewById(R.id.btn_breakfastSearch);
+        Button lunchSearch = view.findViewById(R.id.btn_lunchSearch);
+        Button dinnerSearch = view.findViewById(R.id.btn_dinnerSearch);
+        Button otherMealSearch = view.findViewById(R.id.btn_otherMealSearch);
+
+        ProgressBar calorieProgress = view.findViewById(R.id.pb_MainCalories);
+        ProgressBar carbProgress = view.findViewById(R.id.pb_Carb);
+        ProgressBar proProgress = view.findViewById(R.id.pb_Protein);
+        ProgressBar fatsProgress = view.findViewById(R.id.pb_Fats);
+        TextView calorieTextView = view.findViewById(R.id.tv_RemainingCalories);
 
         breakfastSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchScreenFragment());
+                SearchBreakfastFragment searchFrag = new SearchBreakfastFragment();
+                searchFrag.setArguments(bundle);
+                transaction.replace(R.id.fragment_placeholder, searchFrag);
                 transaction.commit();
             }
         });
@@ -69,8 +98,9 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         lunchSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchScreenFragment());
+                transaction.replace(R.id.fragment_placeholder, new SearchLunchFragment());
                 transaction.commit();
             }
         });
@@ -78,8 +108,9 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         dinnerSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchScreenFragment());
+                transaction.replace(R.id.fragment_placeholder, new SearchDinnerFragment());
                 transaction.commit();
             }
         });
@@ -87,8 +118,9 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         otherMealSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchScreenFragment());
+                transaction.replace(R.id.fragment_placeholder, new SearchOtherMealFragment());
                 transaction.commit();
             }
         });
@@ -100,12 +132,26 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
                 nSteps = 0;
                 nCounterSteps = 0;
                 walkNum.setText(Integer.toString(nSteps));
-
             }
         });
 
+        int calorieRemainder = maxCal - userData.getTotalCalories();
+        calorieTextView.setText(Integer.toString(calorieRemainder) + " Calories Remaining");
+        calorieProgress.setProgress(userData.getTotalCalories());
+        carbProgress.setProgress(userData.getTotalCarbs());
+        proProgress.setProgress(userData.getTotalProteins());
+        fatsProgress.setProgress(userData.getTotalFats());
+
+        if (userData.getTotalCalories() > maxCal) {
+            Toast.makeText(getContext(),"Warning: You have exceeded your daily calorie intake",Toast.LENGTH_SHORT).show();
+        }
 
         return view;
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("pdmSave", nSteps);
     }
 
     public void onStart() {
@@ -114,6 +160,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
             sensorManager.registerListener(this,stepCountSensor,SensorManager.SENSOR_DELAY_GAME);
         }
     }
+
     public void onStop(){
         super.onStop();
         if(sensorManager!=null){
@@ -132,10 +179,11 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
             nSteps = (int) event.values[0] - nCounterSteps;
             walkNum.setText(Integer.toString(nSteps));
         }
-
     }
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+
 }
