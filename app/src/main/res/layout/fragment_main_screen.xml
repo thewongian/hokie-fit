@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="60dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_breakfastSearch"
+                android:layout_width="130dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="@color/light_grey"
+                android:text="@string/breakfastButtonText"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pb_Carb" />
+
+            <Button
+                android:id="@+id/btn_otherMealSearch"
+                android:layout_width="130dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="60dp"
+                android:backgroundTint="@color/light_grey"
+                android:text="@string/otherMealButtonText"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_lunchSearch" />
+
+            <Button
+                android:id="@+id/btn_lunchSearch"
+                android:layout_width="130dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="60dp"
+                android:backgroundTint="@color/light_grey"
+                android:text="@string/lunchButtonText"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pb_Fats" />
+
+            <Button
+                android:id="@+id/btn_dinnerSearch"
+                android:layout_width="130dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/light_grey"
+                android:text="@string/dinnerButtonText"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_breakfastSearch" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/userNameText"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mainUserCalorieTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="0"
+                android:textColor="@color/dark_grey"
+                android:textSize="50sp"
+                app:layout_constraintBottom_toBottomOf="@+id/pb_MainCalories"
+                app:layout_constraintEnd_toEndOf="@+id/pb_MainCalories"
+                app:layout_constraintStart_toStartOf="@+id/pb_MainCalories"
+                app:layout_constraintTop_toTopOf="@+id/pb_MainCalories" />
+
+            <TextView
+                android:id="@+id/tv_RemainingCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mainRemainingCalText"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="@+id/pb_MainCalories"
+                app:layout_constraintStart_toStartOf="@+id/pb_MainCalories"
+                app:layout_constraintTop_toBottomOf="@+id/mainUserCalorieTextView" />
+
+            <ProgressBar
+                android:id="@+id/pb_MainCalories"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userName"
+                tools:max="2400"
+                tools:progress="0" />
+
+            <TextView
+                android:id="@+id/carbsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="70dp"
+                android:text="@string/carbsText"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/proteinText"
+                app:layout_constraintTop_toBottomOf="@+id/pb_MainCalories" />
+
+            <ProgressBar
+                android:id="@+id/pb_Carb"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="70dp"
+                android:progress="0"
+                android:progressTint="@color/red"
+                android:scaleX="2"
+                android:scaleY="6"
+                tools:max="306"
+                app:layout_constraintEnd_toStartOf="@+id/pb_Protein"
+                app:layout_constraintTop_toBottomOf="@+id/proteinText" />
+
+            <ProgressBar
+                android:id="@+id/pb_Protein"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:progress="0"
+                android:progressTint="@color/yellow"
+                android:scaleX="2"
+                android:scaleY="6"
+                tools:max="108"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/proteinText" />
+
+            <ProgressBar
+                android:id="@+id/pb_Fats"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="20dp"
+                android:progress="0"
+                android:progressTint="@color/honey_orange"
+                android:scaleX="2"
+                android:scaleY="6"
+                tools:max="88"
+                app:layout_constraintStart_toEndOf="@+id/pb_Protein"
+                app:layout_constraintTop_toBottomOf="@+id/fatsText" />
+
+            <TextView
+                android:id="@+id/fatsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/fatsText"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/proteinText"
+                app:layout_constraintTop_toBottomOf="@+id/pb_MainCalories" />
+
+            <TextView
+                android:id="@+id/proteinText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/proteinText"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pb_MainCalories" />
+
+            <TextView
+                android:id="@+id/stepCounterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/stepCounterText"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_dinnerSearch" />
+
+            <TextView
+                android:id="@+id/tv_stpCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stepCounterText" />
+
+            <Button
+                android:id="@+id/btn_resetPdm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/str_resetPdm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_stpCount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,4 +11,12 @@
     <color name="orange">#CF4420</color>
     <color name="green">#2FDA3D</color>
     <color name="red">#D44235</color>
+
+    <color name="light_grey">#ECECEC</color>
+    <color name="red">#CA002A</color>
+    <color name="yellow">#FFD319</color>
+    <color name="honey_orange">#EC9706</color>
+    <color name="blue">#2A9DF4</color>
+    <color name="transparent">#00000000</color>
+    <color name="dark_grey">#444444</color>
 </resources>
