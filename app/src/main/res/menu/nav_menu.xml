@@ -6,6 +6,8 @@
     <item android:title="@string/my_goals"
         android:icon="@drawable/goal"
         android:id="@+id/goals"/>
-    <item android:title="@string/activity_log"
-        android:icon="@drawable/activity_feed"/>
+    <item android:title="@string/nutrition"
+        android:icon="@drawable/nutrition"/>
+    <item android:title="@string/fitness"
+        android:icon="@drawable/fitness"/>
 </menu>

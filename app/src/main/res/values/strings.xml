@@ -8,4 +8,9 @@
     <string name="activity_log">Activity Log</string>
     <string name="openNavDrawer">Navigation Drawer Open</string>
     <string name="closeNavDrawer">Navigation Drawer Close</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="fitness">Fitness</string>
+    <string name="enter_a_new_item">Enter a new item</string>
+    <string name="add_item">Add Item</string>
+    <string name="enter_a_new_goal">Enter a new goal</string>
 </resources>
