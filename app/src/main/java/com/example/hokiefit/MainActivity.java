@@ -6,10 +6,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity implements TimerFragment.TimerFragmentListener, StopwatchFragment.StopwatchFragmentListener, StopwatchRest.StopwatchRestListener {
+public class MainActivity extends AppCompatActivity implements TimerFragment.TimerFragmentListener, StopwatchFragment.StopwatchFragmentListener,
+        StopwatchRest.StopwatchRestListener, TimerSelectionFragment.TimerSelectionFragmentListener, FitnessTimer.FitnessTimerListener {
     WorkoutTimer workoutTimer;
     Stopwatch stopwatch;
     FragmentManager fm;
+    boolean end;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements TimerFragment.Tim
     }
 
     @Override
-    public void startWorkout(WorkoutTimer timer) {
+    public void updateTimer(WorkoutTimer timer) {
         workoutTimer = timer;
     }
 
@@ -41,15 +43,30 @@ public class MainActivity extends AppCompatActivity implements TimerFragment.Tim
     }
 
     @Override
-    public void onRestEnd(boolean end) {
-        //play sound notification
-        if (end) {
-            //end stopwatch
-        }
-        else {
-            //keep it going
+    public boolean end() {
+        return end;
+    }
 
+    @Override
+    public void startWorkout() {
+        FragmentTransaction transaction = fm.beginTransaction();
 
-        }
+        transaction.add(R.id.container, new FitnessTimer()).addToBackStack("Rest").commit();
+    }
+
+    @Override
+    public WorkoutTimer getTimer() {
+        return workoutTimer;
+    }
+
+    @Override
+    public void onWorkFinish() {
+        //notification that work finished
+
+    }
+
+    @Override
+    public void onRestFinish() {
+        //notification that rest finished
     }
 }

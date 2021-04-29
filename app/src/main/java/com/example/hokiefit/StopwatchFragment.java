@@ -28,6 +28,7 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
     Stopwatch stopwatch;
     Toast toast;
     boolean running;
+    boolean runningDuringRest;
     StopwatchAsyncTask asyncTask;
     int originalRestTime;
     StopwatchFragmentListener mListener;
@@ -62,12 +63,19 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
 
         restMin.setOnClickListener(this);
         restSec.setOnClickListener(this);
-
-        //Initialize fields
+        Stopwatch watch = mListener.getStopwatch();
+        if (stopwatch == null) {
+            stopwatch = new Stopwatch();
+        }
         originalRestTime = Integer.parseInt(restMin.getText().toString()) * 60 + Integer.parseInt(restMin.getText().toString());
+        if (runningDuringRest) {
+            runningDuringRest = false;
+            running = true;
+        }
+
         asyncTask = new StopwatchAsyncTask();
         asyncTask.execute();
-        stopwatch = new Stopwatch();
+
         return view;
     }
 
@@ -75,6 +83,9 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
     public void onAttach(Context context) {
         super.onAttach(context);
         mListener = (StopwatchFragmentListener) context;
+
+
+
         toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
     }
 
@@ -113,9 +124,12 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
 
                 break;
             case R.id.stopwatchRest:
-                if (!running) {
+                if (running) {
                     running = false;
+                    runningDuringRest = true;
                 }
+                start.setText("Start");
+                runningDuringRest = false;
                 //start rest
                 mListener.rest(stopwatch);
                 break;
@@ -200,14 +214,15 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
 
         protected Void doInBackground(Void... params) {
             while (running) {
+                stopwatch.incrementTime();
+                publishProgress(stopwatch.getMin(), stopwatch.getSec());
                 try {
                     Thread.sleep(1000);
 
                 } catch (Exception e) {
                     Log.e(TAG, ExceptionUtils.getStackTrace(e));
                 }
-                stopwatch.incrementTime();
-                publishProgress(stopwatch.getMin(), stopwatch.getSec());
+
 
             }
             return null;
@@ -216,6 +231,10 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
 
     public interface StopwatchFragmentListener {
         void rest(Stopwatch stopwatch);
+
+        Stopwatch getStopwatch();
+
+        boolean end();
 
     }
 

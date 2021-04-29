@@ -1,10 +1,12 @@
 package com.example.hokiefit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.concurrent.Executor;
 
 /**
 
@@ -43,6 +47,16 @@ public class StopwatchRest extends Fragment implements View.OnClickListener{
         stop = (Button) view.findViewById(R.id.restStopwatchStop);
         end = (Button) view.findViewById(R.id.restEnd);
 
+        stop.setOnClickListener(this);
+        end.setOnClickListener(this);
+        if (stopwatch == null) {
+            Log.e(TAG, "Stopwatch was null");
+        }
+
+        rest = stopwatch.getRestMin() * 60 + stopwatch.getRestSec();
+
+        time.setText(String.format("%02d:%02d", stopwatch.getRestMin(), stopwatch.getRestSec()));
+        running = true;
         asyncTask = new MyAsyncTask();
         asyncTask.execute();
 
@@ -58,13 +72,7 @@ public class StopwatchRest extends Fragment implements View.OnClickListener{
 
         stopwatch = listener.getStopwatch();
 
-        if (stopwatch == null) {
-            Log.e(TAG, "Stopwatch was null");
-        }
 
-        rest = stopwatch.getRestMin() * 60 + stopwatch.getRestSec();
-
-        time.setText(String.format("%02d:%02d", stopwatch.getRestMin(), stopwatch.getRestSec()));
 
     }
 
@@ -95,16 +103,25 @@ public class StopwatchRest extends Fragment implements View.OnClickListener{
                 break;
         }
         if (rest) {
-            listener.onRestEnd(true);
+            asyncTask.cancel(true);
+            asyncTask = null;
+
+            running = false;
+            getActivity().onBackPressed();
         }
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Integer, Void> {
 
+
         @Override
         protected void onProgressUpdate(Integer... ints) {
             if (ints[0] == -1) {
-                listener.onRestEnd(false);
+                running = false;
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    getActivity().onBackPressed();
+                }
             }
             time.setText(String.format("%02d:%02d", ints[0] / 60, ints[0] % 60));
         }
@@ -131,7 +148,6 @@ public class StopwatchRest extends Fragment implements View.OnClickListener{
     }
     public interface StopwatchRestListener {
         Stopwatch getStopwatch();
-        void onRestEnd(boolean end);
     }
 
 }

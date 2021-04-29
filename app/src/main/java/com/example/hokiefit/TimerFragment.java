@@ -67,7 +67,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
 
         //initialize member variable with default values
         timer = new WorkoutTimer();
-        listener.startWorkout(timer);
+        listener.updateTimer(timer);
 
 
         return view;
@@ -207,7 +207,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.restSec:
                 temp = timer.getRestSec();
-                timer.setRestSec(Integer.parseInt(workSec.getText().toString()));
+                timer.setRestSec(Integer.parseInt(restSec.getText().toString()));
                 if (timer.getRestSec() > 59) {
                     restSec.setText(String.format("%02d", temp));
                     toast.setText("Maximum rest seconds is 59");
@@ -226,9 +226,11 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
+        listener.updateTimer(timer);
+
     }
     public interface TimerFragmentListener {
-        void startWorkout(WorkoutTimer timer);
+        void updateTimer(WorkoutTimer timer);
     }
 
 }
