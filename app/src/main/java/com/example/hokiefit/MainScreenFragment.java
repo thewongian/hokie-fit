@@ -140,9 +140,12 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
 
         int calorieRemainder = maxCal - userData.getTotalCalories();
 
+        // When Calorie is positive
         if (calorieRemainder >= 0) {
             calorieTextView.setText(Integer.toString(calorieRemainder));
         }
+
+        // When Calorie is not positive
         else {
             calorieTextView.setText(Integer.toString(Math.abs(calorieRemainder)));
             calorieTextView.setTextColor(Color.parseColor("#CA002A"));
