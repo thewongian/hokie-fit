@@ -1,7 +1,10 @@
 package com.example.hokiefit;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -16,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private ProfileFragment profileFragment;
+    private GoalsFragment goalsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
+        profileFragment = new ProfileFragment();
+        goalsFragment = new GoalsFragment();
+
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -39,12 +47,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.toString()) {
+            case "Profile":
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, profileFragment)
+                        .commit();
+                break;
+            case "My Goals":
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, goalsFragment)
+                        .commit();
+                break;
+        }
         return false;
     }
 
