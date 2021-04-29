@@ -1,5 +1,44 @@
 <resources>
     <string name="app_name">HokieFit</string>
+    <string name="fitnessButtonText">Fitness</string>
+    <string name="nutritionButtonText">Nutrition</string>
+
+    <string name="userNameText">James Bond</string>
+    <string name="carbsText">Carbs</string>
+    <string name="proteinText">Protein</string>
+    <string name="fatsText">Fats</string>
+
+    <string name="breakfastButtonText">Breakfast</string>
+    <string name="lunchButtonText">Lunch</string>
+    <string name="dinnerButtonText">Dinner</string>
+    <string name="otherMealButtonText">Other Meal</string>
+
+    <string name="stepCounterText">Steps Taken</string>
+
+    <string name="mainRemainingCalText">Calories Remaining</string>
+    <string name="settingsDesc">Navigates to settings</string>
+
+    <string name="str_resetPdm">Reset</string>
+
+    <string name="str_backtoMain">To Main Menu</string>
+
+    <string-array name="diningMenu">
+        <item>Hamburger</item>
+        <item>Cheeseburger</item>
+        <item>Caesar Salad</item>
+        <item>French Fries</item>
+        <item>Chicken Nugget</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>Random Description</item>
+        <item>Random Description</item>
+        <item>Random Description</item>
+        <item>Random Description</item>
+        <item>Random Description</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_name">James Bond</string>
     <string name="profile">Profile</string>
     <string name="my_goal">My Goal</string>
