@@ -18,7 +18,8 @@
     <string name="addPreset">Add Preset</string>
     <string name="customPreset">Custom Preset</string>
     <string name="defaultTime">00:00</string>
-    <string name="reset">Reset</string>
+    <string name="reset">Rest</string>
     <string name="end">End Workout</string>
+    <string name="stop">Stop</string>
 
 </resources>

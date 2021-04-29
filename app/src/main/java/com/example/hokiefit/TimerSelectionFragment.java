@@ -34,7 +34,7 @@ public class TimerSelectionFragment extends Fragment implements TimerFragment.Ti
     }
 
     @Override
-    public void updateWorkoutTimer(WorkoutTimer timer) {
+    public void startWorkout(WorkoutTimer timer) {
         workoutTimer = timer;
     }
 }

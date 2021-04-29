@@ -1,10 +1,12 @@
 package com.example.hokiefit;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +15,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 /**
  *
  */
 public class StopwatchFragment extends Fragment implements View.OnClickListener {
+    public static final String TAG = "StopwatchFragment";
     Button restMinus, restPlus, start, rest, end;
     TextView time;
     EditText restMin, restSec;
     Stopwatch stopwatch;
     Toast toast;
+    boolean running;
+    StopwatchAsyncTask asyncTask;
+    int originalRestTime;
+    StopwatchFragmentListener mListener;
     public StopwatchFragment() {
         // Required empty public constructor
     }
 
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +63,10 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         restMin.setOnClickListener(this);
         restSec.setOnClickListener(this);
 
+        //Initialize fields
+        originalRestTime = Integer.parseInt(restMin.getText().toString()) * 60 + Integer.parseInt(restMin.getText().toString());
+        asyncTask = new StopwatchAsyncTask();
+        asyncTask.execute();
         stopwatch = new Stopwatch();
         return view;
     }
@@ -65,6 +74,7 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mListener = (StopwatchFragmentListener) context;
         toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
     }
 
@@ -88,13 +98,31 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
                 restSec.setText(String.format("%02d", stopwatch.getRestSec()));
                 break;
             case R.id.stopwatchStart:
-                //start stop watch
+                if (!running) {
+                    running = true;
+                    start.setText("Stop");
+
+                    asyncTask = new StopwatchAsyncTask();
+                    asyncTask.execute();
+
+                }
+                else {
+                    start.setText("Start");
+                    running = false;
+                }
+
                 break;
             case R.id.stopwatchRest:
+                if (!running) {
+                    running = false;
+                }
                 //start rest
+                mListener.rest(stopwatch);
                 break;
             case R.id.stopwatchEnd:
-                //end the workout and reset
+                end();
+
+
                 break;
             case R.id.restMin2:
                 int temp = stopwatch.getRestMin();
@@ -114,6 +142,7 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
                 }
                 else {
                     restMin.setText(String.format("%02d", stopwatch.getRestMin()));
+
                 }
                 break;
             case R.id.restSec2:
@@ -139,5 +168,56 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
 
         }
 
+
+
+
+
     }
+
+    public void end() {
+        running = false;
+        //log it in activity log
+
+        stopwatch.reset();
+
+        time.setText(String.format("%02d:%02d", stopwatch.getMin(), stopwatch.getSec()));
+    }
+    private class StopwatchAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        /**
+         * Runs when progress is update
+         *
+         * @param ints one or more ints, its just the time values passed from doInBackground though
+         */
+        @Override
+        protected void onProgressUpdate(Integer... ints) {
+            super.onProgressUpdate(ints);
+            String currTime = String.format("%02d:%02d", ints[0], ints[1]);
+            time.setText(currTime);
+        }
+
+
+
+        protected Void doInBackground(Void... params) {
+            while (running) {
+                try {
+                    Thread.sleep(1000);
+
+                } catch (Exception e) {
+                    Log.e(TAG, ExceptionUtils.getStackTrace(e));
+                }
+                stopwatch.incrementTime();
+                publishProgress(stopwatch.getMin(), stopwatch.getSec());
+
+            }
+            return null;
+        }
+    }
+
+    public interface StopwatchFragmentListener {
+        void rest(Stopwatch stopwatch);
+
+    }
+
+
 }

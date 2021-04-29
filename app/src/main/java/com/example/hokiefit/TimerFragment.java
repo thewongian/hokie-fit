@@ -5,13 +5,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -69,7 +67,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
 
         //initialize member variable with default values
         timer = new WorkoutTimer();
-        listener.updateWorkoutTimer(timer);
+        listener.startWorkout(timer);
 
 
         return view;
@@ -230,7 +228,7 @@ public class TimerFragment extends Fragment implements View.OnClickListener {
 
     }
     public interface TimerFragmentListener {
-        void updateWorkoutTimer(WorkoutTimer timer);
+        void startWorkout(WorkoutTimer timer);
     }
 
 }

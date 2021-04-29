@@ -1,14 +1,15 @@
 package com.example.hokiefit;
 
-import android.widget.Button;
-
 /**
  * Stopwatch class
  * Keeps track of time and can increment by seconds
  */
 public class Stopwatch {
 
-    private int sec, min, restSec, restMin;
+    private int sec;
+    private int min;
+    private int restSec;
+    private int restMin;
 
     public Stopwatch() {
         this(0, 0, 0, 30);
@@ -54,6 +55,10 @@ public class Stopwatch {
         }
     }
 
+    public void reset() {
+        sec = 0;
+        min = 0;
+    }
 
     public void incrementRest() {
         restSec++;
@@ -81,6 +86,7 @@ public class Stopwatch {
     }
 
     public void incrementTime() {
+
         sec++;
         if (sec == 60) {
             sec = 0;
@@ -89,6 +95,7 @@ public class Stopwatch {
                 min = 99;
             }
         }
+
     }
 
 

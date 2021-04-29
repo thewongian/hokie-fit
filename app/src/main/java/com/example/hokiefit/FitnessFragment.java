@@ -64,6 +64,5 @@ public class FitnessFragment extends Fragment implements CompoundButton.OnChecke
         transaction.replace(R.id.workoutTimerFragment, fragment).commit();
 
 
-        ;
     }
 }
