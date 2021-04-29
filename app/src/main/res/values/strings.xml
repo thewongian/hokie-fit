@@ -10,7 +10,6 @@
     <string name="closeNavDrawer">Navigation Drawer Close</string>
     <string name="nutrition">Nutrition</string>
     <string name="fitness">Fitness</string>
-    <string name="enter_a_new_item">Enter a new item</string>
     <string name="add_item">Add Item</string>
-    <string name="enter_a_new_goal">Enter a new goal</string>
+    <string name="enter_a_new_goal_press_and_hold_to_delete">Enter a new goal (press and hold to delete)</string>
 </resources>

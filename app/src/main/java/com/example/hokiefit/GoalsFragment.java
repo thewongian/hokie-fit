@@ -36,8 +36,8 @@ public class GoalsFragment extends Fragment {
         setRetainInstance(true);
 
         lvGoals = v.findViewById(R.id.goals_list);
-        readItems(getContext());
         goals = new ArrayList<String>();
+        readItems(getContext());
         addItem = v.findViewById(R.id.goals_add_item);
         newGoal = v.findViewById(R.id.goals_et);
         goalsAdapter = new ArrayAdapter<String>(container.getContext(), android.R.layout.simple_list_item_1, goals);
@@ -70,7 +70,7 @@ public class GoalsFragment extends Fragment {
     }
 
     private void readItems(Context context) {
-        File filesDir = context.getFilesDir();
+        File filesDir = getContext().getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
             goals = new ArrayList<String>(FileUtils.readLines(todoFile));
