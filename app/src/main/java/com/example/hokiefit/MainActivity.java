@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity implements TimerFragment.TimerFragmentListener, StopwatchFragment.StopwatchFragmentListener,
-        StopwatchRest.StopwatchRestListener, TimerSelectionFragment.TimerSelectionFragmentListener, FitnessTimer.FitnessTimerListener {
+        StopwatchRest.StopwatchRestListener, TimerSelectionFragment.TimerSelectionFragmentListener, FitnessTimer.FitnessTimerListener, NavigationView.OnNavigationItemSelectedListener {
     WorkoutTimer workoutTimer;
     Stopwatch stopwatch;
     FragmentManager fm;
@@ -29,12 +29,41 @@ public class MainActivity extends AppCompatActivity implements TimerFragment.Tim
     private NavigationView navigationView;
     private ProfileFragment profileFragment;
     private GoalsFragment goalsFragment;
+    private FitnessFragment fitnessFragment;
+    private MainScreenFragment mainScreenFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fm = getSupportFragmentManager();
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.container, new MainScreenFragment());
+        fragmentTransaction.commit();
+
+        toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+        profileFragment = new ProfileFragment();
+        goalsFragment = new GoalsFragment();
+        fitnessFragment = new FitnessFragment();
+        mainScreenFragment = new MainScreenFragment();
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.openNavDrawer,
+                R.string.closeNavDrawer
+        );
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -127,6 +156,19 @@ public class MainActivity extends AppCompatActivity implements TimerFragment.Tim
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, goalsFragment)
+                        .commit();
+                break;
+
+            case "Nutrition":
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, mainScreenFragment)
+                        .commit();
+                break;
+            case "Fitness":
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, fitnessFragment)
                         .commit();
                 break;
         }
