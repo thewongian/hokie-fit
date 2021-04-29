@@ -10,11 +10,15 @@ import androidx.fragment.app.Fragment;
 
 public class ProfileFragment extends Fragment {
 
+    //private EditText genderEt, dobEt, heightEt, weightEt, nameEt;
+    //public String userName;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
         setRetainInstance(true);
+
         return v;
     }
 }

@@ -1,10 +1,11 @@
 package com.example.hokiefit;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, profileFragment)
                         .commit();
+
                 break;
             case "My Goals":
                 drawerLayout.closeDrawer(Gravity.LEFT);
