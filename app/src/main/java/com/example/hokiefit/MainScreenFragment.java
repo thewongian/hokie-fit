@@ -90,7 +90,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 SearchBreakfastFragment searchFrag = new SearchBreakfastFragment();
                 searchFrag.setArguments(bundle);
-                transaction.replace(R.id.fragment_placeholder, searchFrag);
+                transaction.replace(R.id.container, searchFrag);
                 transaction.commit();
             }
         });
@@ -100,7 +100,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
             public void onClick(View view) {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchLunchFragment());
+                transaction.replace(R.id.container, new SearchLunchFragment());
                 transaction.commit();
             }
         });
@@ -110,7 +110,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
             public void onClick(View view) {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchDinnerFragment());
+                transaction.replace(R.id.container, new SearchDinnerFragment());
                 transaction.commit();
             }
         });
@@ -120,7 +120,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
             public void onClick(View view) {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new SearchOtherMealFragment());
+                transaction.replace(R.id.container, new SearchOtherMealFragment());
                 transaction.commit();
             }
         });

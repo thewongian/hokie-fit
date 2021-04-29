@@ -89,7 +89,7 @@ public class BreakfastListAdapter extends RecyclerView.Adapter implements Filter
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 MainScreenFragment mainScreenFragment = new MainScreenFragment();
                 mainScreenFragment.setArguments(bundle);
-                transaction.replace(R.id.fragment_placeholder, mainScreenFragment);
+                transaction.replace(R.id.container, mainScreenFragment);
                 transaction.commit();
             }
         });

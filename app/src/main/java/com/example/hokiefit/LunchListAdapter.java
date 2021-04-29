@@ -91,7 +91,7 @@ public class LunchListAdapter extends RecyclerView.Adapter implements Filterable
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 MainScreenFragment mainScreenFragment = new MainScreenFragment();
                 mainScreenFragment.setArguments(bundle);
-                transaction.replace(R.id.fragment_placeholder, mainScreenFragment);
+                transaction.replace(R.id.container, mainScreenFragment);
                 transaction.commit();
             }
         });

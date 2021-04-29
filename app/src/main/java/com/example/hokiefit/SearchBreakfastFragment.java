@@ -33,7 +33,7 @@ public class SearchBreakfastFragment extends Fragment implements BreakfastListAd
             @Override
             public void onClick(View view) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_placeholder, new MainScreenFragment());
+                transaction.replace(R.id.container, new MainScreenFragment());
                 transaction.commit();
             }
         });
