@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -33,6 +34,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
     private int maxCarb = 306;
     private int maxPro = 108;
     private int maxFats = 88;
+    private int calorieCheck;
 
     private SensorManager sensorManager;
     private Sensor stepCountSensor;
@@ -81,6 +83,7 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         ProgressBar proProgress = view.findViewById(R.id.pb_Protein);
         ProgressBar fatsProgress = view.findViewById(R.id.pb_Fats);
         TextView calorieTextView = view.findViewById(R.id.tv_RemainingCalories);
+        TextView msgCalories = view.findViewById(R.id.mainUserCalorieTextView);
 
         breakfastSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +139,16 @@ public class MainScreenFragment extends Fragment implements SensorEventListener 
         });
 
         int calorieRemainder = maxCal - userData.getTotalCalories();
-        calorieTextView.setText(Integer.toString(calorieRemainder));
+
+        if (calorieRemainder >= 0) {
+            calorieTextView.setText(Integer.toString(calorieRemainder));
+        }
+        else {
+            calorieTextView.setText(Integer.toString(Math.abs(calorieRemainder)));
+            calorieTextView.setTextColor(Color.parseColor("#CA002A"));
+            msgCalories.setText("Over Daily Calorie");
+        }
+
         calorieProgress.setProgress(userData.getTotalCalories());
         carbProgress.setProgress(userData.getTotalCarbs());
         proProgress.setProgress(userData.getTotalProteins());
